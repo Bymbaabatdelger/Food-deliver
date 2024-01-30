@@ -10,7 +10,8 @@ import { Fullscreen } from "@mui/icons-material";
 
 export default function Footer() {
     return (
-        <Stack sx={{
+       <Stack>
+         <Stack sx={{
             background: "#18BA51",
             p: 4
         }}>
@@ -36,12 +37,16 @@ export default function Footer() {
                     <TwitterIcon sx={{color:"#fff"}}/>
                 </Stack>
 
-                <Divider  sx={{ color:"#fff" , height:2 , width:10}}/>
+                <Divider   orientation="horizontal" flexItem sx={{  color: "#fff"}}/>
                 <Stack direction="column" spacing={1} alignItems="center">
                 <Font>© 2024 Pinecone Foods LLC</Font>
                 <Font>Зохиогчийн эрх хуулиар хамгаалагдсан.</Font>
                 </Stack>
             </Stack>
         </Stack>
+        <Stack>
+            
+        </Stack>
+       </Stack>
     )
 }

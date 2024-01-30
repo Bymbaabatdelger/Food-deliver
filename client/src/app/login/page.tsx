@@ -1,6 +1,8 @@
 "use client"
 
+import { Stack } from "@mui/material";
 import Footer from "../components/Footer";
+import Login from "../components/Login";
 import Navbar from "../components/Navbar";
 
 
@@ -8,11 +10,12 @@ import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
-   <div>
+   <Stack >
 
     <Navbar/>
+    <Login/>
     <Footer/>
   
-   </div>
+   </Stack>
   );
 }
