@@ -7,3 +7,4 @@ const categorySchema = new mongoose.Schema({
         ref : "food"
     }
 })
+export {categorySchema}

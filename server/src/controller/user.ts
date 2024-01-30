@@ -1,6 +1,5 @@
   import bcrypt from "bcrypt"
   import { Request, Response } from "express";
-  import jwt  from "jsonwebtoken";
 import { userModel } from "../model/user";
 
   type signUpType = {

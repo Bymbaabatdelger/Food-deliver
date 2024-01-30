@@ -9,3 +9,5 @@ const foodSchema = new mongoose.Schema({
 })
 
 const foodModel = mongoose.model("food" , foodSchema)
+
+export {foodModel}

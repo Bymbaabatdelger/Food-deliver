@@ -4,8 +4,6 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ButtonPrimary from "./ButtonPrimary"
-import { title } from "process";
-import { Children } from "react";
 export default function Navbar() {
   return (
     <Stack sx={{p:2}} direction="row" justifyContent="space-around">

@@ -4,14 +4,14 @@ import mongoose from "mongoose"
 const orderSchema = new mongoose.Schema({
     userId :{
         type: mongoose.Schema.Types.ObjectId,
-        ref:"Users"
+        ref:"food-delivery"
     },
     orderNumber : Number,
     foods : Array,
     totalPrice : Number,
     process : {
         type: String,
-        enum : ["Бэлтгэгдэж байна" , "Хүргэлтэнд гарсан"]
+        enum : ["Захиалсан" , "Бэлтгэгдэж байна" , "Хүргэлтэнд гарсан"]
     },
     createdDate : Date,
     district : String,
@@ -21,3 +21,4 @@ const orderSchema = new mongoose.Schema({
 })
 
 const orderModel = mongoose.model("order" , orderSchema)
+export {orderModel}
