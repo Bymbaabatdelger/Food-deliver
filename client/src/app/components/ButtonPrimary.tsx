@@ -1,13 +1,20 @@
 import { Button } from "@mui/material"
+import React from "react"
+
+
+export interface ButtonProps extends 
+    React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>,HTMLButtonElement>
+    {
+
+    }
 
 
 
-
-export default function ButtonPrimary({children}:{children:string}){
+ export const ButtonPrimary = ({children , onClick}:ButtonProps) => {
 return(
-    <Button sx={{
+    <Button onClick={onClick} sx={{
         color : "black",
-        fontWeight: "bold"
+        fontWeight: "bold",
     }}>{children}
     </Button>
 )

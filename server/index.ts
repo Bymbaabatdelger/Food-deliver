@@ -14,7 +14,7 @@ const start = () => {
     const app = express();
     app.use(express.json);
     app.use(cors())
-   app.use("/users" , user)
+   app.use("/user" , user)
 
    const PORT = process.env.PORT || 8000
 

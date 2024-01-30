@@ -17,6 +17,6 @@ const UserSchema = new mongoose.Schema({
 
 })
 
-const userModel = mongoose.model( "food-delivery" , UserSchema)
+const userModel = mongoose.model("food-delivery" , UserSchema)
 
 export {userModel}

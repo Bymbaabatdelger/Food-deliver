@@ -1,11 +1,25 @@
 "use client"
-import { Button, ButtonBase, ButtonGroup, InputAdornment, Stack, TextField } from "@mui/material";
+import { Button, ButtonBase, ButtonGroup, Dialog, DialogActions, DialogContent, DialogTitle, InputAdornment, Stack, TextField, Typography } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ButtonPrimary from "./ButtonPrimary"
+import{ ButtonPrimary} from "./ButtonPrimary"
+import { useState } from "react";
+import { setEnvironmentData } from "worker_threads";
+import Modal from "./Modal";
 export default function Navbar() {
+ const [modal , setModal] = useState(true)
+
+ const toggleModal = () => {
+  setModal(!modal)
+  console.log(modal);
+  
+ }
+  
   return (
+
+    
+    
     <Stack sx={{p:2}} direction="row" justifyContent="space-around">
       <Stack direction="row" spacing={3}  alignItems="center">
         <Stack>
@@ -53,9 +67,12 @@ export default function Navbar() {
         </Stack>
         <Stack  direction="row"  alignItems="center">
         <PersonOutlineOutlinedIcon />
-        <ButtonPrimary>нэвтрэх</ButtonPrimary>
+        <ButtonPrimary onClick={toggleModal}  >нэвтрэх</ButtonPrimary>
+      
         </Stack>
       </Stack>
+      {modal && <Modal onClick={toggleModal} />}
     </Stack>
+    
   );
 }
