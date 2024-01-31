@@ -15,10 +15,8 @@ export default function Home() {
    <Stack >
 
     <Navbar/>
-    <FormDialog></FormDialog>
 
     <Login/>
-    
     
     <Footer/>
   

@@ -1,12 +1,24 @@
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { userModel } from "../model/user";
+import jwt from "jsonwebtoken"
 
 type signUpType = {
   userName: String;
   userEmail: String;
   phoneNumber: Number;
   password: string | Buffer;
+};
+type UserType = {
+  _id: string;
+  username: string;
+  password: string;
+  __v: number;
+}
+
+type LogInType = {
+  userEmail: string;
+  password: string;
 };
 
 export const signUp = async (req: Request, res: Response) => {
@@ -40,5 +52,35 @@ export const signUp = async (req: Request, res: Response) => {
       });
     }
     return res.status(400).send({ success: false, error: "Invalid request" });
+  }
+};
+
+export const logIn = async (req: Request, res: Response) => {
+  try {
+    const { userEmail, password }:LogInType = req.body;
+
+    const user:UserType | null = await userModel.findOne({ userEmail });
+    console.log(user);
+
+    if (!user) {
+      return res.status(400).send({ success: false, msg: "User not found" });
+    }
+
+    bcrypt.compare(password, user.password, async function (err, result) {
+      if (!result) {
+        return res.send({
+          success: false,
+          msg: "Username or password incorrect",
+        });
+
+      } else {
+
+        const secretKey = "bat";
+        const token = jwt.sign({...user} , secretKey);
+        return res.send({success:true , token})
+      }
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
