@@ -1,6 +1,7 @@
 import { CheckBox } from "@mui/icons-material";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Signup(){
@@ -12,7 +13,8 @@ const [input , setInput] = useState({
     repassword:"",
 })
 const[error , setError] = useState("")
-const api =  "http://localhost:8000/user/signup"
+const api =  "http://localhost:8000/users"
+const router = useRouter();
 
 const signupHandler = async(e:any) => {
     e.preventDefault()
@@ -24,8 +26,8 @@ const signupHandler = async(e:any) => {
             alert("нууц үг таарсангүй дахин оролдоно уу.")
             return;
         }
-        console.log("matched");
         
+        router.push("/login")
         
     } catch (error:any) {
         setError("Invalid request")
@@ -38,26 +40,26 @@ const signupHandler = async(e:any) => {
         <Typography sx={{fontSize:28 , fontWeight:700}}>Бүртгүүлэх</Typography>
         <Stack>
             Нэр
-            <TextField onChange={(e) =>setInput((prev) => ({...prev , userName:e.target.value})) } sx={{background:"#F7F7F8"}} placeholder="Нэрээ оруулна уу"></TextField>
+            <TextField onChange={(e) =>setInput((prev) => ({...prev , userName:e.target.value})) } sx={{background:"#F7F7F8" , width:"384px"}} placeholder="Нэрээ оруулна уу"></TextField>
         </Stack>
         <Stack>
         И-мэйл
-            <TextField onChange={(e) =>setInput((prev) => ({...prev , userEmail:e.target.value})) }  sx={{background:"#F7F7F8"}} placeholder="И-мэйл хаягаа оруулна уу"></TextField>
+            <TextField onChange={(e) =>setInput((prev) => ({...prev , userEmail:e.target.value})) }  sx={{background:"#F7F7F8" ,  width:"384px"}} placeholder="И-мэйл хаягаа оруулна уу"></TextField>
         </Stack>
         <Stack>
         Утасны дугаар
-            <TextField onChange={(e) =>setInput((prev) => ({...prev , phoneNumber:e.target.value})) } sx={{background:"#F7F7F8"}} placeholder=" утасны дугаараа оруулна уу"></TextField>
+            <TextField onChange={(e) =>setInput((prev) => ({...prev , phoneNumber:e.target.value})) } sx={{background:"#F7F7F8" ,  width:"384px"}} placeholder=" утасны дугаараа оруулна уу"></TextField>
         </Stack>
         <Stack>
             Нууц үг
-            <TextField onChange={(e) =>setInput((prev) => ({...prev , password:e.target.value})) } sx={{background:"#F7F7F8"}} type="password"  placeholder="Нууц үг"></TextField>
+            <TextField onChange={(e) =>setInput((prev) => ({...prev , password:e.target.value})) } sx={{background:"#F7F7F8" ,  width:"384px"}} type="password"  placeholder="Нууц үг"></TextField>
         </Stack>
         <Stack>
         Нууц үг давтах
-            <TextField onChange={(e) =>setInput((prev) => ({...prev , repassword:e.target.value})) } sx={{background:"#F7F7F8"}} type="password"  placeholder="Нууц үг"></TextField>
+            <TextField onChange={(e) =>setInput((prev) => ({...prev , repassword:e.target.value})) } sx={{background:"#F7F7F8" , width:"384px"}} type="password"  placeholder="Нууц үг"></TextField>
         </Stack>
-       <CheckBox />
-        <Button onClick={signupHandler} sx={{ background:"#EEEFF2" , color: "black" ,width:"230px"}} variant="contained">Бүртгүүлэх</Button>
+        <FormControlLabel control={<Checkbox defaultChecked color="default"/>} label="Үйлчилгээний нөхцөл зөвшөөрөх" />
+        <Button onClick={signupHandler} sx={{ background:"#EEEFF2" , color: "black" ,width:"384px"}} variant="contained">Бүртгүүлэх</Button>
       </Stack>
     )
 }

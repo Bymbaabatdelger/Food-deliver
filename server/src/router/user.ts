@@ -3,6 +3,6 @@ import { signUp } from "../controller/user"
 
  const user = express.Router()
 
- user.route("/signup").post(signUp);
+ user.route("/").post(signUp);
 
  export {user}

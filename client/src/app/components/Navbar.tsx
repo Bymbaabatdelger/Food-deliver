@@ -5,10 +5,9 @@ import ShoppingBasketOutlinedIcon from '@mui/icons-material/ShoppingBasketOutlin
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import{ ButtonPrimary} from "./ButtonPrimary"
 import { useState } from "react";
-import { setEnvironmentData } from "worker_threads";
 import Modal from "./Modal";
 export default function Navbar() {
- const [modal , setModal] = useState(true)
+ const [modal , setModal] = useState(false)
 
  const toggleModal = () => {
   setModal(!modal)
@@ -71,7 +70,7 @@ export default function Navbar() {
       
         </Stack>
       </Stack>
-      {modal && <Modal onClick={toggleModal} />}
+      {/* {modal && <Modal onClick={toggleModal} />} */}
     </Stack>
     
   );

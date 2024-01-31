@@ -1,5 +1,5 @@
 "use client"
-import { Stack } from "@mui/material";
+import { Modal, Stack } from "@mui/material";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Signup from "../components/Signup";
