@@ -1,11 +1,11 @@
 import { Stack } from "@mui/material";
-import ButtonSecondary from "./ButtonSecondary";
-import Text from "./Text";
+import ButtonSecondary from "../utils/ButtonSecondary";
+import Text from "../utils/Text";
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import Divider from "@mui/material/Divider";
-import Font from "./Font";
+import Font from "../utils/Font";
 import { Fullscreen } from "@mui/icons-material";
 
 export default function Footer() {

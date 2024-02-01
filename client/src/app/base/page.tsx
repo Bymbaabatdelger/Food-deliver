@@ -1,8 +1,8 @@
 "use client"
 import { Stack } from "@mui/material";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import Main from "../components/Main";
+import Navbar from "../components/static/Navbar";
+import Footer from "../components/static/Footer";
+import Main from "../components/static/Main";
 
 export default function FoodCrud(){
     return(

@@ -8,8 +8,6 @@ export interface ButtonProps extends
 
     }
 
-
-
  export const ButtonPrimary = ({children , onClick}:ButtonProps) => {
 return(
     <Button onClick={onClick} sx={{

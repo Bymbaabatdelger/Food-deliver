@@ -1,10 +1,10 @@
 "use client"
 
 import { Stack } from "@mui/material";
-import Footer from "../components/Footer";
-import Login from "../components/Login";
-import Navbar from "../components/Navbar";
-import FormDialog from "../components/Modal";
+import Footer from "../components/static/Footer";
+import Login from "../components/static/Login";
+import Navbar from "../components/static/Navbar";
+import FormDialog from "../components/static/Modal";
 
 
 
