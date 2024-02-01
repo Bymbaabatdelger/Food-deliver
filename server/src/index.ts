@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import { connectDatabase } from "./utils/database";
 import { user } from "./router/user";
+import { category } from "./router/category";
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use("/users", user);
+app.use("/category" , category)
 
 app.get("/", (req, res) => {
   res.status(200).send({ success: true });
