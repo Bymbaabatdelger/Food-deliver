@@ -9,6 +9,8 @@ import CategoryMenu from "../components/static/CategoryMenu"
 import ImportContactsOutlinedIcon from '@mui/icons-material/ImportContactsOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import RamenDiningOutlinedIcon from '@mui/icons-material/RamenDiningOutlined';
+import FoodCards from "../components/static/FoodCards";
+import DrawCategory from "../components/static/DrawCategory";
 
 export default function FoodCrud(){
     return(
@@ -21,7 +23,6 @@ export default function FoodCrud(){
          <Guide title="Эрүүл, баталгаат орц"  desc="Захиалга бэлтгэлийн явцыг хянах" Icon={RamenDiningOutlinedIcon}/>
          <Guide title="Хоолны өргөн сонголт"  desc="Захиалга бэлтгэлийн явцыг хянах" Icon={ImportContactsOutlinedIcon}/>
         </Stack>
-        <FoodCard/>
         <CategoryMenu/>
         <Footer/>
        </Stack>
