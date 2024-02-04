@@ -145,16 +145,17 @@ export default function Navbar() {
         </FormControl>
         <Typography alignSelf="self-end">Нууц үг сэргээх</Typography>
         </DialogContent>
-        <DialogActions >
-         
-         <Button onClick={loginHandler}>Нэвтрэх</Button>
-         <Typography>Эсвэл</Typography>
-          <Button type="submit">Бүртгүүлэх</Button>
-        
+        <DialogActions sx={{justifyContent:"center" , alignItems:"center" }}  >
+         <Stack direction={"column"}>
+         <Button  onClick={loginHandler}>Нэвтрэх</Button>
+         <Typography alignSelf={"center"}>Эсвэл</Typography>
+         <Button type="submit">Бүртгүүлэх</Button>
+         </Stack>
         </DialogActions>
       </Dialog>
     </React.Fragment>
    
     
   );
+
 }
