@@ -1,16 +1,15 @@
 "use client";
-import { Card, Stack } from "@mui/material";
-import Navbar from "../components/static/Navbar";
-import Footer from "../components/static/Footer";
-import Main from "../components/static/Main";
-import Guide from "../components/static/Guide";
-import FoodCard from "../components/static/FoodCard";
-import CategoryMenu from "../components/static/CategoryMenu";
+import {  Stack } from "@mui/material";
+import Navbar from "../../components/static/Navbar";
+import Footer from "../../components/static/Footer";
+import Main from "../../components/static/Main";
+import Guide from "../../components/static/Guide";
+import CategoryMenu from "../../components/static/CategoryMenu";
 import ImportContactsOutlinedIcon from "@mui/icons-material/ImportContactsOutlined";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import RamenDiningOutlinedIcon from "@mui/icons-material/RamenDiningOutlined";
-import FoodCards from "../components/static/FoodCards";
-import DrawCategory from "../components/static/DrawCategory";
+import FoodCards from "../../components/static/FoodCards";
+import DrawCategory from "../../components/static/DrawCategory";
 
 export default function FoodCrud() {
   return (
