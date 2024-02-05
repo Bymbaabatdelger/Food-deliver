@@ -25,7 +25,7 @@ export const createCategory = async( req:Request , res:Response) => {
 export const getAllCategory = async (req:Request , res:Response) => {
     try {
         const categories = await categoryModel.find();
-        return res.status(200).send({success:true})
+        return res.status(200).send({success:true , categories})
     } catch (error) {
         throw new Error(JSON.stringify(error));
     }

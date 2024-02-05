@@ -12,7 +12,8 @@ const UserSchema = new mongoose.Schema({
     phoneNumber : Number,
     role:  {
       type : String,
-      enum : ["Админ" , "Хэрэглэгч"]
+      enum : ["Админ" , "Хэрэглэгч"],
+      default:"Хэрэглэгч",
     }
 
 })
