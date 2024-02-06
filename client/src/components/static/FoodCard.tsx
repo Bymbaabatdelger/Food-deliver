@@ -19,7 +19,7 @@ export default function ActionAreaCard({
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
         <Stack>
-          {<Image src={image} width={500} height={500} alt="image" />}
+          {<Image src={image} width={282} height={186} alt="image" />}
         </Stack>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

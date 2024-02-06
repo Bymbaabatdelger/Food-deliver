@@ -1,5 +1,5 @@
 import { Box, Divider, Stack, Typography } from "@mui/material"
-import food1 from "../../../../public/image 14.png"
+
 
 
 export default function Main() {

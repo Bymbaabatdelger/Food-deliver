@@ -1,5 +1,7 @@
-import { Stack } from "@mui/material";
-import FoodCard from "../static/FoodCard";
+import { Button, Stack } from "@mui/material";
+import FoodCard from "./FoodCard";
+import StarIcon from '@mui/icons-material/Star';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 export default function FoodCards() {
   const data = [
     {
@@ -29,10 +31,16 @@ export default function FoodCards() {
   ];
 
   return (
-    <Stack direction={"row"} justifyContent={"space-around"}>
+    <Stack direction={"column"} gap={4}>
+      <Stack direction={"row"} justifyContent={"space-between"} px={16}>
+        <Button startIcon={<StarIcon/>}> Хямдралтай</Button>
+        <Button endIcon={<ArrowForwardIosIcon/>}>Бүгдийг харах</Button>
+      </Stack>
+      <Stack direction={"row"} justifyContent={"space-around"}>
       {data.map((el) => {
         return <FoodCard image={el.image} title={el.title} price={el.price} />;
       })}
+    </Stack>
     </Stack>
   );
 }
