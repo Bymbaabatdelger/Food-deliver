@@ -29,14 +29,16 @@ export const signUp = async (req: Request, res: Response) => {
     const saltRounds = 10;
     bcrypt.hash(password, saltRounds, async function (error, hash) {
       try {
-        const result = await userModel.create({
+        const result = new userModel({
           userName,
           password: hash,
           userEmail,
           phoneNumber,
         });
-        console.log(result);
-        console.log("asd");
+      
+        const savedUser = await result.save();
+        res.status(201).json(savedUser);
+      
       } catch (error) {
         throw new Error(JSON.stringify(error));
       }
