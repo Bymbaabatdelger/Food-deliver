@@ -6,6 +6,10 @@ const foodSchema = new mongoose.Schema({
     image : Buffer,
     ingredient : String,
     price : Number,
+    discount:{
+        type:Number,
+        default:0,
+    }
 })
 
 const foodModel = mongoose.model("food" , foodSchema)

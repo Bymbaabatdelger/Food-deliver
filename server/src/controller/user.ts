@@ -84,3 +84,15 @@ export const logIn = async (req: Request, res: Response) => {
     console.log(error);
   }
 };
+
+export const deleteUser = async (req:Request , res:Response) => {
+  try {
+    const {userName , userEmail} = req.body
+    const remove = await userModel.deleteOne({userName , userEmail})
+    console.log(remove);
+    return res.send({success:true})
+    
+  } catch (error) {
+    console.log(error);
+  }
+}

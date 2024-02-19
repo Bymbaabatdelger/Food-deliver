@@ -1,5 +1,6 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
@@ -8,6 +9,7 @@ const [input , setInput] = useState({
   password:"",
 })
 const [error , setError] = useState("")
+const router = useRouter()
 const api = "http://localhost:8000/users/login"
 
 const loginHandler = async(e:any) => {
@@ -15,6 +17,7 @@ const loginHandler = async(e:any) => {
   try {
     const res = await axios.post(api , {...input})
     console.log(res);
+    router.push("/base")
     
   } catch (error:any) {
     setError(error.response.data.msg)
