@@ -7,16 +7,27 @@ const orderSchema = new mongoose.Schema({
         ref:"food-delivery"
     },
     orderNumber : Number,
-    foods : Array,
+    foods : [
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            ref:"food"
+        }
+    ],
     totalPrice : Number,
     process : {
         type: String,
-        enum : ["Захиалсан" , "Бэлтгэгдэж байна" , "Хүргэлтэнд гарсан"]
+        enum : ["ordered" , "inprogress" , "delivered"],
+        default: "ordered",
     },
     createdDate : Date,
     district : String,
     khoroo : String,
     apartment : String,
+    payment : {
+        type:String,
+        enum :["paid", "not paid"],
+        default:"not paid"
+    }
 
 })
 
