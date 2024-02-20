@@ -9,14 +9,15 @@ const UserSchema = new mongoose.Schema({
     },
     password: {
      type:String,
+     select:false,
      required:true,
     },
     avatarImage : Buffer,
     phoneNumber : Number,
     role:  {
       type : String,
-      enum : ["Админ" , "Хэрэглэгч"],
-      default:"Хэрэглэгч",
+      enum : ["admin" , "user"],
+      default:"user",
     }
 
 })

@@ -1,13 +1,26 @@
-import jwt from "jsonwebtoken"
 
-export const checkToken = (req:any , res:any , next: () => void) => {
-    const token  = req.headers.token;
+import { NextFunction, Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 
-    try {
-        jwt.verify(token , "bat");
-        next()
+async function hashPassword(password: string) {
+  try {
+    const SALT = 12;
+    const salt = await bcrypt.genSalt(SALT);
+    const hash = await bcrypt.hash(password, salt);
+    return hash;
+  } catch (err: any) {
+    throw new Error(err.message);
+  }
+}
 
-    } catch (error) {
-         return res.status(400).send({ success: false, msg: 'Invalid token' });
-    }
+export const auth = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { password } = req.body;
+  const hash = await hashPassword(password);
+
+  req.body.password = hash;
+  next();
 };

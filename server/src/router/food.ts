@@ -1,7 +1,8 @@
 import express from "express"
-import { CreateFood } from "../controller/food"
+import { createFood,  deleteFoodById,  getAllFoods, getOneFoodById, updateFoodById } from "../controller/food"
 
 const food = express.Router()
 
-food.route("/").post(CreateFood)
+food.route("/").post(createFood).get(getAllFoods).put(updateFoodById).delete(deleteFoodById)
+food.route("/get").get(getOneFoodById)
 export { food}

@@ -21,69 +21,49 @@ type LogInType = {
   password: string;
 };
 
+
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const { userName, userEmail, phoneNumber, password }: Required<signUpType> = req.body;
-    console.log(req.body);
-
-    const saltRounds = 10;
-    bcrypt.hash(password, saltRounds, async function (error, hash) {
-      try {
-        const result = new userModel({
-          userName,
-          password: hash,
-          userEmail,
-          phoneNumber,
-        });
-      
-        const savedUser = await result.save();
-        res.status(201).json(savedUser);
-      
-      } catch (error) {
-        throw new Error(JSON.stringify(error));
-      }
-    });
-
+    await userModel.create(req.body);
     return res.status(201).send({ success: true });
-  } catch (error: any) {
-    if (error.code === 11000) {
-      return res.status(400).send({
-        success: false,
-        error: "already existing username",
-        code: error.code,
-      });
-    }
-    return res.status(400).send({ success: false, error: "Invalid request" });
+  } catch (error) {
+    return res.status(400).send({ error });
   }
 };
 
 export const logIn = async (req: Request, res: Response) => {
   try {
-    const { userEmail, password }:LogInType = req.body;
-
-    const user:UserType | null = await userModel.findOne({ userEmail });
-    console.log(user);
-
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email }).select('+password');
     if (!user) {
-      return res.status(400).send({ success: false, msg: "User not found" });
+      return res.status(404).send({ msg: 'user not found' });
     }
 
-    bcrypt.compare(password, user.password, async function (err, result) {
-      if (!result) {
-        return res.send({
-          success: false,
-          msg: "Username or password incorrect",
-        });
+    const isValid = bcrypt.compareSync(password, user.password as string);
 
-      } else {
+    if (!isValid) {
+      return res.status(400).send({ msg: 'Email or password incorrect' });
+    }
 
-        const secretKey = "bat";
-        const token = jwt.sign({...user} , secretKey);
-        return res.send({success:true , token})
-      }
-    });
+    const token = jwt.sign({ user }, 'MY_SECRET_KEY');
+
+    return res.status(200).send({ success: true, token });
   } catch (error) {
     console.log(error);
+    return res.status(400).send({ error });
+  }
+};
+
+
+
+
+export const getAllUsers = async (req:Request, res:Response) => {
+  try {
+    const users = await userModel.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -100,5 +80,39 @@ export const deleteUser = async (req:Request , res:Response) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({error});
+  }
+};
+
+export const updateUserById = async (req:Request, res:Response) => {
+  const userId = req.params.userId;
+  const updatedUserData = req.body;
+  try {
+    const updatedUser = await userModel.findByIdAndUpdate(
+      userId,
+      updatedUserData,
+      { new: true }
+    );
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.error( error);
+    res.status(500).json({ error });
+  }
+};
+
+export const getOneUserById = async (req: Request, res: Response) => {
+  try {
+    const checkUser = await userModel.findById(req.params.id);
+
+    if (!checkUser) {
+      return res.status(404).json({ error: "user not found" });
+    }
+    res.status(200).json(checkUser);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };

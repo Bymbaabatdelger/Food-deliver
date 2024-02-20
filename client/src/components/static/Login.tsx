@@ -10,7 +10,7 @@ const [input , setInput] = useState({
 })
 const [error , setError] = useState("")
 const router = useRouter()
-const api = "http://localhost:8000/users/login"
+const api = "http://localhost:8000/users/user"
 
 const loginHandler = async(e:any) => {
   e.preventDefault()

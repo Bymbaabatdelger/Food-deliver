@@ -1,11 +1,16 @@
 import mongoose from "mongoose";
 
 const categorySchema = new mongoose.Schema({
-    name : String,
-    foodId : {
+    name : {
+        type:String,
+        unique:true,
+        required:true,
+    },
+
+    foodId :[ {
         type: mongoose.Schema.Types.ObjectId,
         ref : "food"
-    }
+    }]
 })
 const categoryModel  = mongoose.model("category" , categorySchema)
 

@@ -8,25 +8,91 @@ import mongoose from "mongoose";
  }
 
 export const createCategory = async( req:Request , res:Response) => {
+
+     const {name , foodId }:Required<categoryType>= req.body
+
    try {
-    const {name }:Required<categoryType>= req.body
-    console.log(req.body);
-    const result = await categoryModel.create({name})
-    console.log(result);
-    return res.status(200).send({success:true})
-    
-    
+
+   const  checkFoodIdsByObjectId = Array.isArray(foodId)
+   ? foodId.map((id: string) => new mongoose.Types.ObjectId(id))
+   : [new mongoose.Types.ObjectId(foodId)];
+  
+    const checkCategory = await categoryModel.findOne({name});
+
+    if(checkCategory) {
+
+        checkCategory.foodId.push(... checkFoodIdsByObjectId)
+        const updatedCategory = await checkCategory.save();
+
+        res.status(200).json(updatedCategory);
+
+    } else {
+        const createCategory = await categoryModel.create({
+            name,
+            foodId: checkFoodIdsByObjectId,
+          });
+    }
    } catch (error) {
-    return res.status(400).send({ success: false, error: "Invalid request" });
+    console.error(error)
+    return res.status(500).send({ success: false, error: "Server error" });
+
    }
 
 }
 
-export const getAllCategory = async (req:Request , res:Response) => {
+ export const getAllCategories = async (req: Request, res: Response) => {
     try {
-        const categories = await categoryModel.find();
-        return res.status(200).send({success:true , categories})
+      const categories = await categoryModel.find().populate("foodId");
+  
+      res.status(200).json(categories);
     } catch (error) {
-        throw new Error(JSON.stringify(error));
+      console.error(error);
+      res.status(500).json({ error: " Server Error" });
     }
-}
+  };
+
+  export const getCategoryById = async (req: Request, res: Response) => {
+    try {
+      const category = await categoryModel.findById(req.params.id);
+  
+      if (!category) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.status(200).json(category);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+  export const updateCategoryById = async (req: Request, res: Response) => {
+    try {
+      const updatedCategory = await categoryModel.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+      );
+      if (!updatedCategory) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.status(200).json(updatedCategory);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+
+  export const deleteCategoryById = async (req: Request, res: Response) => {
+    try {
+      const deletedCategory = await categoryModel.findByIdAndDelete(
+        req.params.id
+      );
+      if (!deletedCategory) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.status(204).json();
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
