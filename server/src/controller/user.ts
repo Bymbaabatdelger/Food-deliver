@@ -86,13 +86,17 @@ export const logIn = async (req: Request, res: Response) => {
 };
 
 export const deleteUser = async (req:Request , res:Response) => {
+  const userId = req.params.userId
   try {
-    const {userName , userEmail} = req.body
-    const remove = await userModel.deleteOne({userName , userEmail})
-    console.log(remove);
-    return res.send({success:true})
+   
+    const remove = await userModel.findByIdAndDelete(userId)
+    if(remove){
+      res.status(200).json(remove)
+    }
+    res.status(404).json({ error: "User not found" });
     
   } catch (error) {
-    console.log(error);
+    console.error(error);
+    res.status(500).json({error});
   }
-}
+};
