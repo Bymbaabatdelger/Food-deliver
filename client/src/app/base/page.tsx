@@ -41,7 +41,6 @@ export default function FoodCrud() {
       <CategoryMenu />
       <DrawCategory/>
       <FoodCards />
-      <FoodCards  />
       <Footer />
     </Stack>
   );

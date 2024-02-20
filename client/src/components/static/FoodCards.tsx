@@ -2,7 +2,23 @@ import { Button, Stack } from "@mui/material";
 import FoodCard from "./FoodCard";
 import StarIcon from '@mui/icons-material/Star';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function FoodCards() {
+ const [ menu , setMenu] =useState([])
+ const [name , setName] = useState("")
+ const api = "http://localhost:8000/category"
+ 
+ const drawMenu = async () => {
+  const res = await axios.get(api)
+  console.log(res);
+  setMenu(res.data.categories)
+ }
+ useEffect(() => {
+  drawMenu();
+  console.log(menu);
+}, []);
+
   const data = [
     {
       image:
@@ -30,17 +46,24 @@ export default function FoodCards() {
     },
   ];
 
+ return <>
+  {menu && menu.map((el:any) => {
+  console.log(el,'el')
   return (
-    <Stack direction={"column"} gap={4}>
-      <Stack direction={"row"} justifyContent={"space-between"} px={16}>
-        <Button startIcon={<StarIcon/>}> Хямдралтай</Button>
+    <Stack direction={"column"} gap={4} p={5}>
+      <Stack direction={"column"} justifyContent={"space-between"} px={16} gap={2}>
+       <Stack direction={"row"}  justifyContent={"space-between"} px={16}>
+        <Button startIcon={<StarIcon/>}>{el.name}</Button>
         <Button endIcon={<ArrowForwardIosIcon/>}>Бүгдийг харах</Button>
-      </Stack>
-      <Stack direction={"row"} justifyContent={"space-around"}>
+       </Stack>
+        <Stack direction={"row"} justifyContent={"space-around"}>
       {data.map((el) => {
         return <FoodCard image={el.image} title={el.title} price={el.price} />;
       })}
     </Stack>
+      </Stack>
     </Stack>
   );
+ })}
+  </>
 }
