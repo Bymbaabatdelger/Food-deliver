@@ -1,30 +1,32 @@
 import { Button, Stack } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import useSWR from "swr";
 
 export default function DrawCategory() {
-  const [category, setCategory] = useState([]);
   const api = "http://localhost:8000/category";
+  const fetcher = (args:any) => axios.get(args).then((res) => res.data);
+  
+  const { data, isLoading, error } = useSWR(api, fetcher);
+  console.log(data);
+  // const [category, setCategory] = useState([]);
 
-  const fetchCategory = async () => {
-    const data = await axios.get(api);
-    console.log(data);
+  // const fetchCategory = async () => {
+  //   const data = await axios.get(api);
+  //   console.log(data);
 
-    setCategory(data.data.categories);
-  };
+  //   setCategory(data.data);
+  // };
 
-
-  useEffect(() => {
-    fetchCategory();
-    console.log(category);
-  }, []);
+  // useEffect(() => {
+  //   fetchCategory();
+  // }, []);
 
   return (
-    <Stack direction={"row"} justifyContent={"center"} gap={10}>
-      {category &&
-        category.map((el:any) => {
-          return <Button  >{el.name}</Button>;
+    <Stack px={20} direction={"row"} justifyContent={"space-between"}>
+      {data &&
+        data.map((el: any) => {
+          return <Button>{el.name}</Button>;
         })}
     </Stack>
   );

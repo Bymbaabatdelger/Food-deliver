@@ -1,25 +1,29 @@
 import { Button, Stack } from "@mui/material";
 import FoodCard from "./FoodCard";
-import StarIcon from '@mui/icons-material/Star';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import StarIcon from "@mui/icons-material/Star";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { log } from "console";
+import useSWR from "swr";
 export default function FoodCards() {
- const [ menu , setMenu] =useState([])
- const [name , setName] = useState("")
- const api = "http://localhost:8000/category"
- 
- const drawMenu = async () => {
-  const res = await axios.get(api)
-  console.log(res);
-  setMenu(res.data.categories)
- }
- useEffect(() => {
-  drawMenu();
-  console.log(menu);
-}, []);
+  const api = "http://localhost:8000/category";
+  const fetcher = (args:any) => axios.get(args).then((res) => res.data);
+  
+  const { data, isLoading, error } = useSWR(api, fetcher);
+  console.log(data);
 
-  const data = [
+  // const [menu, setMenu] = useState([]);
+  // const [name, setName] = useState("");
+  // const drawMenu = async () => {
+  //   const res = await axios.get(api);
+  //   setMenu(res.data);
+  // };
+  // useEffect(() => {
+  //   drawMenu();
+  // }, []);
+
+  const dataCard = [
     {
       image:
         "https://s3-alpha-sig.figma.com/img/126b/c4b5/18352f27a399e723ba8fe9d39d12c27f?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Tleh-odbeAFX74VqI~Td2K3eA5N-jxt2h3Rit7DN3M6cOcnc6DOHC3H8xV7mkK1TjQZTS0U5oVdH8oJw6IcggdO9ZzQQ3lTfU5ir6l8PtfBwqcRT9W57NBiCiTv1mlnL7HngYW039cyNbwEhSQDuZ0SFupsHUlRzTzVWS68QSMbB21Yyua4X9r0QFu-kJO9exoq7qP~YxxfY5x3e8KzJFtCJPxOSARw2XsHj7aWAO8evRmbYseDMhXOKOHtc~xd4vg8ZoKFA54v9pCJXAetsjcVzoMK5dKkqLoDTNmjNsR8rqZmDhjpCEj6tc0U12hSBB~UN1qNRdu52Pg~kRePO8A__",
@@ -46,24 +50,44 @@ export default function FoodCards() {
     },
   ];
 
- return <>
-  {menu && menu.map((el:any) => {
-  console.log(el,'el')
   return (
-    <Stack direction={"column"} gap={4} p={5}>
-      <Stack direction={"column"} justifyContent={"space-between"} px={16} gap={2}>
-       <Stack direction={"row"}  justifyContent={"space-between"} px={16}>
-        <Button startIcon={<StarIcon/>}>{el.name}</Button>
-        <Button endIcon={<ArrowForwardIosIcon/>}>Бүгдийг харах</Button>
-       </Stack>
-        <Stack direction={"row"} justifyContent={"space-around"}>
-      {data.map((el) => {
-        return <FoodCard image={el.image} title={el.title} price={el.price} />;
-      })}
-    </Stack>
-      </Stack>
-    </Stack>
+    <>
+      {data &&
+        data.map((el: any) => {
+          // console.log(el, "el");
+          return (
+            <Stack direction={"column"} gap={4} p={5}>
+              <Stack
+                direction={"column"}
+                justifyContent={"space-between"}
+                px={16}
+                gap={2}
+              >
+                <Stack
+                  direction={"row"}
+                  justifyContent={"space-between"}
+                  px={16}
+                >
+                  <Button startIcon={<StarIcon />}>{el.name}</Button>
+                  <Button endIcon={<ArrowForwardIosIcon />}>
+                    Бүгдийг харах
+                  </Button>
+                </Stack>
+                <Stack direction={"row"} justifyContent={"space-around"}>
+                  {dataCard.map((el) => {
+                    return (
+                      <FoodCard
+                        image={el.image}
+                        title={el.title}
+                        price={el.price}
+                      />
+                    );
+                  })}
+                </Stack>
+              </Stack>
+            </Stack>
+          );
+        })}
+    </>
   );
- })}
-  </>
 }

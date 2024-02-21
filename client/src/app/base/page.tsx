@@ -10,6 +10,8 @@ import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 import RamenDiningOutlinedIcon from "@mui/icons-material/RamenDiningOutlined";
 import FoodCards from "../../components/static/FoodCards";
 import DrawCategory from "../../components/static/DrawCategory";
+import CreateFood from "../../components/static/CreateFood";
+
 
 export default function FoodCrud() {
   return (
@@ -38,7 +40,8 @@ export default function FoodCrud() {
           Icon={ImportContactsOutlinedIcon}
         />
       </Stack>
-      <CategoryMenu />
+      {/* <CategoryMenu /> */}
+      <CreateFood/>
       <DrawCategory/>
       <FoodCards />
       <Footer />
