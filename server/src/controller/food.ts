@@ -25,15 +25,15 @@ export const createFood = async (req: Request, res: Response) => {
       image: response.secure_url,
       discount: req.body.discount,
     });
-    await categoryModel.aggregate([
-      {
-        $match: {
-          _id: new mongoose.Types.ObjectId(req.body.categoryId)
-        }
+    // await categoryModel.aggregate([
+    //   {
+    //     $match: {
+    //       _id: new mongoose.Types.ObjectId(req.body.categoryId)
+    //     }
        
-      },
+    //   },
       
-    ])
+    // ])
     res.status(201).json(createFoodDetails);
   } catch (error) {
     console.error("Error occured during create a food", error);

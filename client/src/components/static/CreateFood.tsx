@@ -24,6 +24,10 @@ export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState({
     name:"",
+    category_id:"",
+    ingredient:"",
+    price:"",
+    discount:""
     
   });
 
@@ -39,7 +43,8 @@ export default function FormDialog() {
   const createFood = async () => {
     try {
       const res = await axios.post(api, {...input});
-      console.log(res);
+      console.log(res, "success");
+
     } catch (error: any) {
       console.log(error);
     }
@@ -83,31 +88,31 @@ export default function FormDialog() {
         <DialogContent sx={{gap:3}}>
           <Stack>
             <Typography> Хоолны нэр </Typography>
-            <TextField placeholder="placeholder"></TextField>
+            <TextField  onChange={(e) =>setInput((prev) => ({...prev , name:e.target.value})) } placeholder="placeholder"></TextField>
           </Stack>
           <FormControl variant="outlined">
             <Typography>Хоолны ангилал</Typography>
-            <Select>
+            <Select value={input.category_id}  onChange={(e) =>setInput((prev) => ({...prev , category_id:e.target.value})) } >
               
               {data && data.map((el:any)=>
-              <MenuItem aria-valuetext={el.id}>{el.name}
+              <MenuItem  aria-valuetext={el.id}>{el.name}
               </MenuItem>)}
              
             </Select>
             <Stack>
               <Typography> Хоолны орц </Typography>
-              <TextField placeholder="placeholder"></TextField>
+              <TextField  onChange={(e) =>setInput((prev) => ({...prev , ingredient:e.target.value})) } placeholder="placeholder"></TextField>
             </Stack>
             <Stack>
               <Typography> Хоолны үнэ </Typography>
-              <TextField placeholder="placeholder"></TextField>
+              <TextField  onChange={(e) =>setInput((prev) => ({...prev , price:e.target.value})) } placeholder="placeholder"></TextField>
             </Stack>
            <Stack>
            <Stack direction={"row"} alignItems={"center"}>
                 <Switch/>
                 <Typography> Хямдралтай эсэх </Typography>
             </Stack>
-            <TextField placeholder="placeholder"></TextField>
+            <TextField  onChange={(e) =>setInput((prev) => ({...prev , userName:e.target.value})) } placeholder="placeholder"></TextField>
            </Stack>
            <Stack>
            <Typography> Хоолны зураг </Typography>
@@ -123,7 +128,7 @@ export default function FormDialog() {
         <DialogActions sx={{ justifyContent: "center", alignItems: "center" }}>
           <Stack direction={"row"} alignSelf={"end"}>
             <Button>Clear</Button>
-            <Button>Continue</Button>
+            <Button onClick={createFood}>Continue</Button>
           </Stack>
         </DialogActions>
       </Dialog>
