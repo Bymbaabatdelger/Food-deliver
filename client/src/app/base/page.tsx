@@ -40,7 +40,7 @@ export default function FoodCrud() {
           Icon={ImportContactsOutlinedIcon}
         />
       </Stack>
-      {/* <CategoryMenu /> */}
+      <CategoryMenu />
       <CreateFood/>
       <DrawCategory/>
       <FoodCards />

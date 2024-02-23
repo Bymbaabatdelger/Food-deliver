@@ -9,14 +9,16 @@ import React, { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import axios from "axios";
 import Pinecone from "../icons/Pinecone.svg";
+import { useRouter } from "next/navigation";
 export default function Navbar() {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter()
   const [input , setInput] = useState({
     userEmail:"",
     password:"",
   })
   const [error , setError] = useState("")
-  const api = "http://localhost:8000/users/login"
+  const api = "http://localhost:8000/users/user"
   
   const loginHandler = async(e:any) => {
     e.preventDefault()
@@ -24,6 +26,7 @@ export default function Navbar() {
       const res = await axios.post(api , {...input})
       console.log(res);
       handleClose()
+      router.push("/base")
       
     } catch (error:any) {
       setError(error.response.data.msg)
@@ -103,7 +106,7 @@ export default function Navbar() {
         <DialogContent>
         <Stack>
             <Typography> Имэйл </Typography>
-            <TextField  onChange={(e)=>setInput((prev) => ({...prev , password:e.target.value}))} placeholder='Имэйл хаягаа оруулна уу'></TextField>
+            <TextField  onChange={(e)=>setInput((prev) => ({...prev , userEmail:e.target.value}))} placeholder='Имэйл хаягаа оруулна уу'></TextField>
         </Stack>
         <FormControl  variant="outlined">
             <Typography>Нууц үг</Typography>
