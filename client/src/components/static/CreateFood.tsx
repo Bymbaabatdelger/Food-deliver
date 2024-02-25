@@ -27,9 +27,11 @@ export default function FormDialog() {
     category_id:"",
     ingredient:"",
     price:"",
-    discount:""
+    discount:"",
+    image:[],
     
   });
+  const [image, setImage] = React.useState([]);
 
   const apiFood = "http://localhost:8000/category";
   const fetcher = (args:any) => axios.get(args).then((res) => res.data);
@@ -57,6 +59,19 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleImage = (e:any) =>{
+    const file = e.target.files[0];
+    setFileToBase(file);
+    console.log(file);
+}
+const setFileToBase = (file:any) =>{
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onloadend = () =>{
+      setInput.image(reader.result);
+  }
+
+}
 
   return (
     <React.Fragment>

@@ -3,9 +3,9 @@ import { v2 } from "cloudinary";
 export const cloudinaryConfig = async () => {
   try {
     v2.config({
-      cloud_name: "ddjcpzprt",
-      api_key: "646313681831616",
-      api_secret: "lTJ7YmN6WpeHQoRi2Qkhzv5erws",
+      cloud_name: process.env.CLOUDNAME,
+      api_key: process.env.APIKEY,
+      api_secret: process.env.APISECRET,
     });
 
     console.log("Cloudinary config connected");
