@@ -59,19 +59,19 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleImage = (e:any) =>{
-    const file = e.target.files[0];
-    setFileToBase(file);
-    console.log(file);
-}
-const setFileToBase = (file:any) =>{
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onloadend = () =>{
-      setInput.image(reader.result);
-  }
+//   const handleImage = (e:any) =>{
+//     const file = e.target.files[0];
+//     setFileToBase(file);
+//     console.log(file);
+// }
+// const setFileToBase = (file:any) =>{
+//   const reader = new FileReader();
+//   reader.readAsDataURL(file);
+//   reader.onloadend = () =>{
+//       setInput.image(reader.result);
+//   }
 
-}
+// }
 
   return (
     <React.Fragment>

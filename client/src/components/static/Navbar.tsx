@@ -33,6 +33,10 @@ export default function Navbar() {
     }
   } 
 
+  const signUpHandler = () => {
+    router.push("/signup")
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -135,7 +139,7 @@ export default function Navbar() {
          <Stack direction={"column"}>
          <Button  onClick={loginHandler}>Нэвтрэх</Button>
          <Typography alignSelf={"center"}>Эсвэл</Typography>
-         <Button type="submit">Бүртгүүлэх</Button>
+         <Button onClick={signUpHandler} type="submit">Бүртгүүлэх</Button>
          </Stack>
         </DialogActions>
       </Dialog>
