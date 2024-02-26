@@ -7,25 +7,34 @@ import mongoose from "mongoose";
 
 cloudinaryConfig();
 
-const timestamp = new Date().toISOString().replace(/:/g, "-");
-const randomString = Math.random().toString(36).substring(7);
-const public_id = `food_${timestamp}_${randomString}`;
+type FoodType = {
+  foodname: string;
+  image: string;
+  ingeredient: string;
+  price: number;
+  discount?: number;
+  categoryName: string;
+};
+
 
 export const createFood = async (req: Request, res: Response) => {
   try {
-    const response = await cloudinary.uploader.upload(req.body.image, {
+    const cloudinary_response = await cloudinary.uploader.upload(req.body.image, {
       folder: "foodImage",
-      public_id: public_id,
     });
-    cloudinary.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
-  { public_id: "olympic_flag" }, 
-  function(error:any, result:any) {console.log(result); });
-
+    const {
+      foodname,
+      ingeredient,
+      price,
+      discount,
+      categoryName,
+    }: Required<FoodType> = req.body;
+ 
     const createFoodDetails = await foodModel.create({
       name: req.body.name,
       ingredient: req.body.ingredient,
       price: req.body.price,
-      image: response.secure_url,
+      image: cloudinary_response.secure_url,
       discount: req.body.discount,
     });
     // await categoryModel.aggregate([

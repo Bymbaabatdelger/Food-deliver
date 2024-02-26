@@ -40,7 +40,7 @@ export default function FoodCards() {
       image:
         "https://s3-alpha-sig.figma.com/img/212a/1c96/f7a2a9e4728cdfcd39a141afa4d32e5c?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Ffi0Un~zEYmfQaOPYDgChVYniuN0kFN3~f-Xaexnx2omGCXdCCNoA9sGicocN7R7Km8n9bEe6IrBVetEQ2mD73Bz9kM0kK1QmZADVWOY9-oO8hU4k3vnCxi277t6C~7MELTNNAITOfWtl0q7v~vhRzbcx1odPsbm5Sv-0BHNdKAZqUkAlRukSgLOf31xWVPlNG~2ijaMdHaDGqv1SHXgYVPF6VZSVUFf52mCZd-NPpxRwm9NeAvpXOd7rEIwLbfagsrtxScymLBhoSXM3JAs-RAHY6QqnHi5Jvz5wPPHY7b0Qc8OXhcyH02EnePhWCiAJTvZvcb63p9xa57xP7Yxpw__",
       title: "Зутан шөл",
-      price: 20000,
+      price: 2000,
     },
     {
       image:

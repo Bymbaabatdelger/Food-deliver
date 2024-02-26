@@ -4,6 +4,7 @@ import Static from "@/components/static/Static";
 import DrawCategory from "@/components/static/DrawCategory";
 import CreateFood from "@/components/static/CreateFood";
 import FoodCards from "@/components/static/FoodCards";
+import CategoryMenu from "@/components/static/CategoryMenu";
 import Footer from "@/components/static/Footer";
 import Navbar from "../components/static/Navbar";
 import Main from "@/components/static/Main";
@@ -16,6 +17,7 @@ export default function userDashboard() {
       <Main />
       <Static/>
       <CreateFood/>
+      <CategoryMenu/>
       <DrawCategory/>
       <FoodCards />
       <Footer/>
