@@ -17,6 +17,9 @@ export const createFood = async (req: Request, res: Response) => {
       folder: "foodImage",
       public_id: public_id,
     });
+    cloudinary.uploader.upload("https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg",
+  { public_id: "olympic_flag" }, 
+  function(error:any, result:any) {console.log(result); });
 
     const createFoodDetails = await foodModel.create({
       name: req.body.name,

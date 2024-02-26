@@ -26,7 +26,7 @@ export default function Navbar() {
       const res = await axios.post(api , {...input})
       console.log(res);
       handleClose()
-      router.push("/base")
+      router.push("/userDashboard")
       
     } catch (error:any) {
       setError(error.response.data.msg)

@@ -28,10 +28,9 @@ export default function FormDialog() {
     ingredient:"",
     price:"",
     discount:"",
-    image:[],
     
   });
-  const [image, setImage] = React.useState([]);
+  const [image, setImage] = React.useState(null);
 
   const apiFood = "http://localhost:8000/category";
   const fetcher = (args:any) => axios.get(args).then((res) => res.data);
@@ -59,6 +58,10 @@ export default function FormDialog() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleFileChange = (event:any) => {
+    setImage(event.target.files[0])
+  }
 //   const handleImage = (e:any) =>{
 //     const file = e.target.files[0];
 //     setFileToBase(file);
@@ -68,7 +71,7 @@ export default function FormDialog() {
 //   const reader = new FileReader();
 //   reader.readAsDataURL(file);
 //   reader.onloadend = () =>{
-//       setInput.image(reader.result);
+//       image(reader.result);
 //   }
 
 // }
@@ -133,7 +136,7 @@ export default function FormDialog() {
            <Typography> Хоолны зураг </Typography>
            <Stack sx={{backgroundColor:"#F4F4F4" , border:"dashed", borderRadius:2, borderColor:"#D6D7DC" , p:5}}>
             <Typography>Add image for the food</Typography>
-            <Button>Add image</Button>
+            <Button onClick={handleFileChange} >Add image</Button>
            </Stack>
            </Stack>
             
