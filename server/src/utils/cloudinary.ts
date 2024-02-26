@@ -8,9 +8,9 @@ export const cloudinaryConfig = async () => {
       api_secret: process.env.APISECRET,
     });
 
-    console.log("Cloudinary config connected");
+    console.log("Cloudinary connected");
   } catch (error) {
-    console.log("Cloudinary config interrupted");
+    console.log("Cloudinary connection interrupted");
   }
 };
 

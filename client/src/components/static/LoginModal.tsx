@@ -8,9 +8,40 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Stack, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
-export default function FormDialog() {
+export const loginModal = ({onClick}:any) => {
+
+  const router = useRouter()
   const [open, setOpen] = React.useState(false);
+   const [error , setError] = React.useState("")
+  const [input , setInput] = React.useState({
+    userEmail:"",
+    password:"",
+  })
+ 
+  
+  const api = "http://localhost:8000/users/user"
+
+  
+  const loginHandler = async(e:any) => {
+    e.preventDefault()
+
+    try {
+      const res = await axios.post(api , {...input})
+      console.log(res);
+      handleClose()
+      router.push("/userDashboard")
+      
+    } catch (error:any) {
+      setError(error.response.data.msg)
+    }
+  } 
+
+  const signUpHandler = () => {
+    router.push("/signup")
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -26,6 +57,7 @@ export default function FormDialog() {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
+
 
   return (
     <React.Fragment>
@@ -50,8 +82,8 @@ export default function FormDialog() {
         <DialogTitle alignSelf="center">Нэвтрэх</DialogTitle>
         <DialogContent>
         <Stack>
-            <Typography> Имэйл </Typography>
-            <TextField placeholder='Имэйл хаягаа оруулна уу'></TextField>
+            <Typography > Имэйл </Typography>
+            <TextField onChange={onClick} placeholder='Имэйл хаягаа оруулна уу'></TextField>
         </Stack>
         <FormControl  variant="outlined">
             <Typography>Нууц үг</Typography>
@@ -77,9 +109,9 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions >
          
-         <Button onClick={handleClose}>Нэвтрэх</Button>
+         <Button onClick={loginHandler}>Нэвтрэх</Button>
          <Typography>Эсвэл</Typography>
-          <Button type="submit">Бүртгүүлэх</Button>
+          <Button onClick={signUpHandler} type="submit">Бүртгүүлэх</Button>
         
         </DialogActions>
       </Dialog>
