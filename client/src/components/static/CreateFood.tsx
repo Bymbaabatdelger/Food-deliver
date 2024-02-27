@@ -6,6 +6,7 @@ import {
   Input,
   InputAdornment,
   MenuItem,
+  NativeSelect,
   OutlinedInput,
   Select,
   Stack,
@@ -31,7 +32,7 @@ export default function FormDialog() {
     ingredient: "",
     price: "",
     discount: "",
-    image: null,
+    image: "",
   });
   const [image, setImage] = React.useState(null);
 
@@ -120,7 +121,7 @@ export default function FormDialog() {
           </Stack>
           <FormControl variant="outlined">
             <Typography>Хоолны ангилал</Typography>
-            <Select
+            <NativeSelect sx={{border:1 , p:1 , borderRadius:1 , borderColor:"#D6D7DC"}}
               value={input.category_id}
               onChange={(e) =>
                 setInput((prev) => ({ ...prev, category_id: e.target.value }))
@@ -128,9 +129,9 @@ export default function FormDialog() {
             >
               {data &&
                 data.map((el: any) => (
-                  <MenuItem aria-valuetext={el.id}>{el.name}</MenuItem>
+                  < option value={el.id}>{el.name}</option>
                 ))}
-            </Select>
+            </NativeSelect>
             <Stack>
               <Typography> Хоолны орц </Typography>
               <TextField
@@ -174,7 +175,7 @@ export default function FormDialog() {
               >
                 <Typography>Add image for the food</Typography>
                 {/* <Input onChange={handleFileChange} type="file" /> */}
-                <CldUploadWidget uploadPreset="uehrhnkw">
+                <CldUploadWidget  uploadPreset="uehrhnkw">
                   {({ open }) => {
                     return (
                       <button

@@ -19,7 +19,7 @@ export default function userDashboard() {
       <Static/>
       <CreateFood/>
       <CategoryMenu/>
-      <OrderList/>
+      {/* <OrderList/> */}
       <DrawCategory/>
       <FoodCards />
       <Footer/>

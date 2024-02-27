@@ -26,7 +26,7 @@ export default function DrawCategory() {
     <Stack px={20} direction={"row"} justifyContent={"space-between"}>
       {data &&
         data.map((el: any) => {
-          return <Button>{el.name}</Button>;
+          return <Button sx={{border:1 , color:"white" , background:"#18BA51"}}>{el.name}</Button>;
         })}
     </Stack>
   );

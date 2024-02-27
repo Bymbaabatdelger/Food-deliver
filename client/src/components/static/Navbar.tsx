@@ -7,7 +7,8 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import{ ButtonPrimary} from "../utils/ButtonPrimary"
 import React, { useState } from "react";
 import Pinecone from "../icons/Pinecone.svg";
-export default function Navbar( {onClick}:any) {
+import OrderClick from "./OrderList";
+export default function Navbar( {onClick, orderCLick}:any) {
   
 
   const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -57,7 +58,7 @@ export default function Navbar( {onClick}:any) {
         ></TextField>
         <Stack  direction="row"  alignItems="center">
         <ShoppingBasketOutlinedIcon />
-        <ButtonPrimary onClick={toggleDrawer(true)}>сагс</ButtonPrimary>
+        <ButtonPrimary onClick={orderCLick}>сагс</ButtonPrimary>
         </Stack>
         <Stack  direction="row"  alignItems="center">
         <PersonOutlineOutlinedIcon />

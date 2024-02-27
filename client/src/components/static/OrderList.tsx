@@ -3,7 +3,7 @@ import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
 import { Stack } from '@mui/material';
 
-export default function TemporaryDrawer() {
+export default function OrderClick({orderCLick}:any) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen: boolean) => () => {
@@ -21,7 +21,7 @@ export default function TemporaryDrawer() {
   return (
     <Stack>
       <Button onClick={toggleDrawer(true)}>Open drawer</Button>
-      <Drawer open={open} onClose={toggleDrawer(false)}>
+      <Drawer open={open} onClose={orderCLick}>
         {DrawerContent}
       </Drawer>
     </Stack>

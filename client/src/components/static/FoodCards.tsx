@@ -68,8 +68,8 @@ export default function FoodCards() {
                   justifyContent={"space-between"}
                   px={16}
                 >
-                  <Button startIcon={<StarIcon />}>{el.name}</Button>
-                  <Button endIcon={<ArrowForwardIosIcon />}>
+                  <Button sx={{color:"#18BA51" ,fontWeight:"bold" ,fontSize:24}} startIcon={<StarIcon />}>{el.name}</Button>
+                  <Button sx={{color:"#18BA51"}} endIcon={<ArrowForwardIosIcon />}>
                     Бүгдийг харах
                   </Button>
                 </Stack>
