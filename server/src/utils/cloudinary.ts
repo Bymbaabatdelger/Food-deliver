@@ -1,11 +1,12 @@
-import { v2 }  from "cloudinary";
-
+import { v2 } from "cloudinary";
+import dotenv from "dotenv";
+dotenv.config();
 export const cloudinaryConfig = async () => {
   try {
     v2.config({
-      cloud_name: process.env.CLOUDNAME,
-      api_key: process.env.APIKEY,
-      api_secret: process.env.APISECRET,
+      cloud_name: process.env.CLOUDNAME || "",
+      api_key: process.env.APIKEY || "",
+      api_secret: process.env.APISECRET || "",
     });
 
     console.log("Cloudinary connected");
@@ -13,9 +14,6 @@ export const cloudinaryConfig = async () => {
     console.log("Cloudinary connection interrupted");
   }
 };
-
-
-
 
 // export const uploadToCloudinary = (path: any, folder: any) => {
 //   return v2.uploader

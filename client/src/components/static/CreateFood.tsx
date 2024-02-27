@@ -1,7 +1,9 @@
+"use client";
 import {
   Button,
   FormControl,
   IconButton,
+  Input,
   InputAdornment,
   MenuItem,
   OutlinedInput,
@@ -19,62 +21,64 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import useSWR from "swr";
+import { CldUploadWidget } from "next-cloudinary";
 
 export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
   const [input, setInput] = React.useState({
-    name:"",
-    category_id:"",
-    ingredient:"",
-    price:"",
-    discount:"",
-    
+    name: "",
+    category_id: "",
+    ingredient: "",
+    price: "",
+    discount: "",
+    image: null,
   });
   const [image, setImage] = React.useState(null);
 
   const apiFood = "http://localhost:8000/category";
-  const fetcher = (args:any) => axios.get(args).then((res) => res.data);
-  
+  const fetcher = (args: any) => axios.get(args).then((res) => res.data);
+
   const { data, isLoading, error } = useSWR(apiFood, fetcher);
   console.log(data);
-
 
   const api = "http://localhost:8000/food";
 
   const createFood = async () => {
     try {
-      const res = await axios.post(api, {...input});
+      const res = await axios.post(api, { ...input });
       console.log(res, "success");
-
     } catch (error: any) {
       console.log(error);
     }
   };
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenModal(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpenModal(false);
   };
 
-  const handleFileChange = (event:any) => {
-    setImage(event.target.files[0])
-  }
-//   const handleImage = (e:any) =>{
-//     const file = e.target.files[0];
-//     setFileToBase(file);
-//     console.log(file);
-// }
-// const setFileToBase = (file:any) =>{
-//   const reader = new FileReader();
-//   reader.readAsDataURL(file);
-//   reader.onloadend = () =>{
-//       image(reader.result);
-//   }
+  // const uploadImage = setInput.image;
 
-// }
+  // const handleFileChange = (event: any) => {
+  //   setImage(event.target.files[0]);
+  //   console.log(image);
+  // };
+
+  // const handleImage = (e: any) => {
+  //   const file = e.target.files[0];
+  //   setFileToBase(file);
+  //   console.log(file);
+  // };
+  // const setFileToBase = (file: any) => {
+    // const reader = new FileReader();
+    // reader.readAsDataURL(file);
+    // reader.onloadend = () =>{
+    //     image(reader.result);
+    // }
+  // };
 
   return (
     <React.Fragment>
@@ -87,8 +91,9 @@ export default function FormDialog() {
           + Create new food
         </Button>
       </Stack>
+      
       <Dialog
-        open={open}
+        open={openModal}
         onClose={handleClose}
         PaperProps={{
           component: "form",
@@ -103,45 +108,90 @@ export default function FormDialog() {
         }}
       >
         <DialogTitle alignSelf="center">Create Food</DialogTitle>
-        <DialogContent sx={{gap:3}}>
+        <DialogContent sx={{ gap: 3 }}>
           <Stack>
             <Typography> Хоолны нэр </Typography>
-            <TextField  onChange={(e) =>setInput((prev) => ({...prev , name:e.target.value})) } placeholder="placeholder"></TextField>
+            <TextField
+              onChange={(e) =>
+                setInput((prev) => ({ ...prev, name: e.target.value }))
+              }
+              placeholder="placeholder"
+            ></TextField>
           </Stack>
           <FormControl variant="outlined">
             <Typography>Хоолны ангилал</Typography>
-            <Select value={input.category_id}  onChange={(e) =>setInput((prev) => ({...prev , category_id:e.target.value})) } >
-              
-              {data && data.map((el:any)=>
-              <MenuItem  aria-valuetext={el.id}>{el.name}
-              </MenuItem>)}
-             
+            <Select
+              value={input.category_id}
+              onChange={(e) =>
+                setInput((prev) => ({ ...prev, category_id: e.target.value }))
+              }
+            >
+              {data &&
+                data.map((el: any) => (
+                  <MenuItem aria-valuetext={el.id}>{el.name}</MenuItem>
+                ))}
             </Select>
             <Stack>
               <Typography> Хоолны орц </Typography>
-              <TextField  onChange={(e) =>setInput((prev) => ({...prev , ingredient:e.target.value})) } placeholder="placeholder"></TextField>
+              <TextField
+                onChange={(e) =>
+                  setInput((prev) => ({ ...prev, ingredient: e.target.value }))
+                }
+                placeholder="placeholder"
+              ></TextField>
             </Stack>
             <Stack>
               <Typography> Хоолны үнэ </Typography>
-              <TextField  onChange={(e) =>setInput((prev) => ({...prev , price:e.target.value})) } placeholder="placeholder"></TextField>
+              <TextField
+                onChange={(e) =>
+                  setInput((prev) => ({ ...prev, price: e.target.value }))
+                }
+                placeholder="placeholder"
+              ></TextField>
             </Stack>
-           <Stack>
-           <Stack direction={"row"} alignItems={"center"}>
-                <Switch/>
+            <Stack>
+              <Stack direction={"row"} alignItems={"center"}>
+                <Switch />
                 <Typography> Хямдралтай эсэх </Typography>
+              </Stack>
+              <TextField
+                onChange={(e) =>
+                  setInput((prev) => ({ ...prev, userName: e.target.value }))
+                }
+                placeholder="placeholder"
+              ></TextField>
             </Stack>
-            <TextField  onChange={(e) =>setInput((prev) => ({...prev , userName:e.target.value})) } placeholder="placeholder"></TextField>
-           </Stack>
-           <Stack>
-           <Typography> Хоолны зураг </Typography>
-           <Stack sx={{backgroundColor:"#F4F4F4" , border:"dashed", borderRadius:2, borderColor:"#D6D7DC" , p:5}}>
-            <Typography>Add image for the food</Typography>
-            <Button onClick={handleFileChange} >Add image</Button>
-           </Stack>
-           </Stack>
-            
+            <Stack>
+              <Typography> Хоолны зураг </Typography>
+              <Stack
+                sx={{
+                  backgroundColor: "#F4F4F4",
+                  border: "dashed",
+                  borderRadius: 2,
+                  borderColor: "#D6D7DC",
+                  p: 5,
+                }}
+              >
+                <Typography>Add image for the food</Typography>
+                {/* <Input onChange={handleFileChange} type="file" /> */}
+                <CldUploadWidget uploadPreset="uehrhnkw">
+                  {({ open }) => {
+                    return (
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          open();
+                        }}
+                      >
+                        Upload an Image
+                      </button>
+                    );
+                  }}
+                </CldUploadWidget>
+                {/* <Button onClick={handleFileChange}>Add image</Button> */}
+              </Stack>
+            </Stack>
           </FormControl>
-         
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center", alignItems: "center" }}>
           <Stack direction={"row"} alignSelf={"end"}>

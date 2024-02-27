@@ -13,40 +13,38 @@ type FoodType = {
   ingeredient: string;
   price: number;
   discount?: number;
-  categoryName: string;
 };
-
 
 export const createFood = async (req: Request, res: Response) => {
   try {
-    const cloudinary_response = await cloudinary.uploader.upload(req.body.image, {
-      folder: "foodImage",
-    });
-    const {
-      foodname,
-      ingeredient,
-      price,
-      discount,
-      categoryName,
-    }: Required<FoodType> = req.body;
- 
-    const createFoodDetails = await foodModel.create({
-      name: req.body.name,
-      ingredient: req.body.ingredient,
-      price: req.body.price,
-      image: cloudinary_response.secure_url,
-      discount: req.body.discount,
-    });
+    console.log(req);
+    // const cloudinary_response = await cloudinary.uploader.upload(
+    //   req.body.image,
+    //   {
+    //     folder: "foodImage",
+    //   }
+    // );
+    // const { foodname, ingeredient, price, image }: Required<FoodType> =
+    //   req.body;
+
+    // const createFoodDetails = await foodModel.create({
+    //   name: req.body.name,
+    //   ingredient: req.body.ingredient,
+    //   price: req.body.price,
+    //   image: cloudinary_response.secure_url,
+    //   discount: req.body.discount,
+    // });
     // await categoryModel.aggregate([
     //   {
     //     $match: {
     //       _id: new mongoose.Types.ObjectId(req.body.categoryId)
     //     }
-       
+
     //   },
-      
+
     // ])
-    res.status(201).json(createFoodDetails);
+    // res.status(201).json(createFoodDetails);
+    res.status(201).json("");
   } catch (error) {
     console.error("Error occured during create a food", error);
     res.status(500).json({ error: "Internal Server Error" });

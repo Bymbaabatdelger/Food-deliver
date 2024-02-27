@@ -13,11 +13,12 @@ const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", user);
-app.use("/category" , category);
-app.use("/food" , food);
-app.use("/order" , order);
+app.use("/category", category);
+app.use("/food", food);
+app.use("/order", order);
 
 app.get("/", (req, res) => {
   res.status(200).send({ success: true });
