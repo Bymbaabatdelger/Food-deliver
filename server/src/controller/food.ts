@@ -8,32 +8,33 @@ import mongoose from "mongoose";
 cloudinaryConfig();
 
 type FoodType = {
-  foodname: string;
+  name: string;
   image: string;
-  ingeredient: string;
+  ingredient: string;
   price: number;
   discount?: number;
+  categoryName: string;
 };
 
 export const createFood = async (req: Request, res: Response) => {
   try {
-   
-    // const cloudinary_response = await cloudinary.uploader.upload(
-    //   req.body.image,
-    //   {
-    //     folder: "foodImage",
-    //   }
-    // );
-    const { foodname, ingeredient, price, image,  }: Required<FoodType> =
-      req.body;
+
+    const {
+      name,
+      ingredient,
+      price,
+      image,
+      discount,
+      categoryName,
+    }: Required<FoodType> = req.body;
 
     const createFoodDetails = await foodModel.create({
-      name: req.body.name,
-      ingredient: req.body.ingredient,
-      price: req.body.price,
-      image: req.body.image,
-      discount: req.body.discount,
-      category_id:req.body.category_id
+      name: name,
+      ingredient:ingredient,
+      price:price,
+      image:image,
+      discount:discount,
+      categoryName:categoryName
     });
     // await categoryModel.aggregate([
     //   {
@@ -44,6 +45,21 @@ export const createFood = async (req: Request, res: Response) => {
     //   },
 
     // ])
+
+    createFoodDetails.save()
+
+    await categoryModel.findOneAndUpdate(
+      {
+        name: categoryName,
+      },
+      {
+        $push: {
+          foodId: createFoodDetails._id,
+        },
+      }
+    );
+
+    
     res.status(201).json(createFoodDetails);
     res.status(201).json("");
   } catch (error) {

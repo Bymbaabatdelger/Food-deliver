@@ -13,7 +13,7 @@ const foodSchema = new mongoose.Schema({
         type:Number,
         default:0,
     },
-    category_id : {
+    categoryName : {
         type:String,
     }
 },{timestamps:true})

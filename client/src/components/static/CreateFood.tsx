@@ -28,7 +28,7 @@ export default function FormDialog() {
   const [openModal, setOpenModal] = useState(false);
   const [input, setInput] = useState({
     name: "",
-    category_id: "",
+    categoryName: "",
     ingredient: "",
     price: "",
     discount: "",
@@ -110,13 +110,13 @@ export default function FormDialog() {
             <Typography>Хоолны ангилал</Typography>
             <NativeSelect
               sx={{ border: 1, p: 1, borderRadius: 1, borderColor: "#D6D7DC" }}
-              value={input.category_id}
+              value={input.categoryName}
               onChange={(e) =>
-                setInput((prev) => ({ ...prev, category_id: e.target.value }))
+                setInput((prev) => ({ ...prev, categoryName: e.target.value }))
               }
             >
               {data &&
-                data.map((el: any) => <option value={el._id}>{el.name}</option>)}
+                data.map((el: any) => <option value={el.name}>{el.name}</option>)}
             </NativeSelect>
             <Stack>
               <Typography> Хоолны орц </Typography>
