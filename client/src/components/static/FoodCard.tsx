@@ -5,8 +5,9 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, Dialog, DialogContent, DialogTitle, FormControl, Stack } from "@mui/material";
 import Image from "next/image";
+import { title } from "process";
 
-export default function ActionAreaCard({image, title,price,}: {image: any;title: string;price: number;})
+export default function ActionAreaCard({image, name,price,}: {image: any;name: string;price: number;})
  {
   const[open , setOpen]=React.useState(false)
   const handleClickOpen = () => {
@@ -30,7 +31,7 @@ export default function ActionAreaCard({image, title,price,}: {image: any;title:
         </Stack>
         <CardContent >
           <Typography gutterBottom variant="h5" component="div">
-            {title}
+            {name}
           </Typography>
           <Typography sx={{color:"#18BA51" , fontWeight:"bold"}} variant="body2" color="text.secondary">
             {price}
@@ -49,7 +50,7 @@ export default function ActionAreaCard({image, title,price,}: {image: any;title:
         </Stack>
         <Stack direction={"column"} justifyContent={"space-between"}>
          <Stack>
-         <Typography sx={{fontWeight:"bold"}}>{title}</Typography>
+         <Typography sx={{fontWeight:"bold"}}>{name}</Typography>
           <Typography  sx={{color:"#18BA51" , fontWeight:"bold"}}>{price}</Typography>
          </Stack>
          <Stack direction={"column"} gap={3}>

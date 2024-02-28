@@ -14,7 +14,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import * as React from "react";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -23,10 +22,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import axios from "axios";
 import useSWR from "swr";
 import { CldUploadWidget } from "next-cloudinary";
+import { FormEvent, Fragment, useState } from "react";
 
 export default function FormDialog() {
-  const [openModal, setOpenModal] = React.useState(false);
-  const [input, setInput] = React.useState({
+  const [openModal, setOpenModal] = useState(false);
+  const [input, setInput] = useState({
     name: "",
     category_id: "",
     ingredient: "",
@@ -34,18 +34,24 @@ export default function FormDialog() {
     discount: "",
     image: "",
   });
-  const [image, setImage] = React.useState(null);
+
+  
+  const fetcher = (args: any) => axios.get(args).then((res) => res.data);
+
 
   const apiFood = "http://localhost:8000/category";
-  const fetcher = (args: any) => axios.get(args).then((res) => res.data);
+  const api = "http://localhost:8000/food/foods";
 
   const { data, isLoading, error } = useSWR(apiFood, fetcher);
   console.log(data);
 
-  const api = "http://localhost:8000/food";
+  
 
   const createFood = async () => {
+    console.log("running");
+    
     try {
+
       const res = await axios.post(api, { ...input });
       console.log(res, "success");
     } catch (error: any) {
@@ -53,36 +59,17 @@ export default function FormDialog() {
     }
   };
 
-  const handleClickOpen = () => {
-    setOpenModal(true);
-  };
-
+  const handleClickOpen = () => setOpenModal(true);
+  
   const handleClose = () => {
     setOpenModal(false);
   };
 
-  // const uploadImage = setInput.image;
+  console.log(input)
 
-  // const handleFileChange = (event: any) => {
-  //   setImage(event.target.files[0]);
-  //   console.log(image);
-  // };
-
-  // const handleImage = (e: any) => {
-  //   const file = e.target.files[0];
-  //   setFileToBase(file);
-  //   console.log(file);
-  // };
-  // const setFileToBase = (file: any) => {
-    // const reader = new FileReader();
-    // reader.readAsDataURL(file);
-    // reader.onloadend = () =>{
-    //     image(reader.result);
-    // }
-  // };
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Stack p={5} gap={4} width="402px">
         <Typography fontWeight="bold" alignSelf="center">
           Create Food
@@ -92,13 +79,13 @@ export default function FormDialog() {
           + Create new food
         </Button>
       </Stack>
-      
+
       <Dialog
         open={openModal}
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
+          onSubmit: (event: FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
@@ -121,16 +108,15 @@ export default function FormDialog() {
           </Stack>
           <FormControl variant="outlined">
             <Typography>Хоолны ангилал</Typography>
-            <NativeSelect sx={{border:1 , p:1 , borderRadius:1 , borderColor:"#D6D7DC"}}
+            <NativeSelect
+              sx={{ border: 1, p: 1, borderRadius: 1, borderColor: "#D6D7DC" }}
               value={input.category_id}
               onChange={(e) =>
                 setInput((prev) => ({ ...prev, category_id: e.target.value }))
               }
             >
               {data &&
-                data.map((el: any) => (
-                  < option value={el.id}>{el.name}</option>
-                ))}
+                data.map((el: any) => <option value={el._id}>{el.name}</option>)}
             </NativeSelect>
             <Stack>
               <Typography> Хоолны орц </Typography>
@@ -175,21 +161,32 @@ export default function FormDialog() {
               >
                 <Typography>Add image for the food</Typography>
                 {/* <Input onChange={handleFileChange} type="file" /> */}
-                <CldUploadWidget  uploadPreset="uehrhnkw">
+                <CldUploadWidget
+                  uploadPreset="uehrhnkw"
+                  onSuccess={(result, { widget }) => {
+
+                    setInput((prev) => ({...prev, image: result?.info?.secure_url}))
+                    // setResource(result?.info);
+                    widget.close();
+                    
+                  }}
+                >
                   {({ open }) => {
                     return (
-                      <button
-                        onClick={(e) => {
-                          e.preventDefault();
-                          open();
-                        }}
-                      >
-                        Upload an Image
-                      </button>
+                      <Stack>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            open();
+                          }}
+                        >
+                          Upload an Image
+                        </button>
+                      </Stack>
                     );
                   }}
                 </CldUploadWidget>
-                {/* <Button onClick={handleFileChange}>Add image</Button> */}
+               
               </Stack>
             </Stack>
           </FormControl>
@@ -201,6 +198,6 @@ export default function FormDialog() {
           </Stack>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </Fragment>
   );
 }

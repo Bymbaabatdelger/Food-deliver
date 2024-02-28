@@ -12,6 +12,9 @@ const foodSchema = new mongoose.Schema({
     discount:{
         type:Number,
         default:0,
+    },
+    category_id : {
+        type:String,
     }
 },{timestamps:true})
 
