@@ -1,7 +1,7 @@
 import mongoose from "mongoose"
 
-
 const orderSchema = new mongoose.Schema({
+
     userId :{
         type: mongoose.Schema.Types.ObjectId,
         ref:"user"
@@ -32,4 +32,5 @@ const orderSchema = new mongoose.Schema({
 })
 
 const orderModel = mongoose.model("order" , orderSchema)
+
 export {orderModel}

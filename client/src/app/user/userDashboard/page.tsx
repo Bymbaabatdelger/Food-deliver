@@ -7,8 +7,8 @@ import FoodCards from "@/components/static/FoodCards";
 import CategoryMenu from "@/components/static/CategoryMenu";
 import OrderList from "@/components/static/OrderList";
 import Footer from "@/components/static/Footer";
-import Navbar from "../components/static/Navbar";
 import Main from "@/components/static/Main";
+import Navbar from "@/components/static/Navbar";
 
 
 export default function userDashboard() {
@@ -17,8 +17,8 @@ export default function userDashboard() {
       <Navbar />
       <Main />
       <Static/>
-      <CreateFood/>
-      <CategoryMenu/>
+      {/* <CreateFood/>
+      <CategoryMenu/> */}
       {/* <OrderList/> */}
       <DrawCategory/>
       <FoodCards />
@@ -26,10 +26,4 @@ export default function userDashboard() {
     </Stack>
   );
 }
-// import Document, { Html, Head, Main, NextScript } from 'next/document'
- 
-// class MyDocument extends Document {
-//   //...
-// }
- 
-// export default MyDocument
+

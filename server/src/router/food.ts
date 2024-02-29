@@ -9,11 +9,7 @@ import {
 
 const food = express.Router();
 
-food
-  .route("/foods")
-  .post(createFood)
-  .get(getAllFoods)
-  .put(updateFoodById)
-  .delete(deleteFoodById);
+food.route("/foods").post(createFood).get(getAllFoods).put(updateFoodById).delete(deleteFoodById);
 food.route("/get").get(getOneFoodById);
+
 export { food };

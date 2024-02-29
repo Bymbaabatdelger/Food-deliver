@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Signup(){
+
+const[error , setError] = useState("")
+const router = useRouter();
 const [input , setInput] = useState({
     userName:"",
     userEmail:"",
@@ -12,9 +15,8 @@ const [input , setInput] = useState({
     password:"",
     repassword:"",
 })
-const[error , setError] = useState("")
+
 const api =  "http://localhost:8000/users"
-const router = useRouter();
 
 const signupHandler = async(e:any) => {
     e.preventDefault()
@@ -26,7 +28,6 @@ const signupHandler = async(e:any) => {
             alert("нууц үг таарсангүй дахин оролдоно уу.")
             return;
         }
-        
         router.push("/login")
         
     } catch (error:any) {

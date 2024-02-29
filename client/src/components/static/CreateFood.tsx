@@ -35,13 +35,10 @@ export default function FormDialog() {
     image: "",
   });
 
-  
-  const fetcher = (args: any) => axios.get(args).then((res) => res.data);
-
-
   const apiFood = "http://localhost:8000/category";
   const api = "http://localhost:8000/food/foods";
 
+  const fetcher = (args: any) => axios.get(args).then((res) => res.data);
   const { data, isLoading, error } = useSWR(apiFood, fetcher);
   console.log(data);
 
@@ -49,9 +46,8 @@ export default function FormDialog() {
 
   const createFood = async () => {
     console.log("running");
-    
-    try {
 
+    try {
       const res = await axios.post(api, { ...input });
       console.log(res, "success");
     } catch (error: any) {
@@ -60,13 +56,7 @@ export default function FormDialog() {
   };
 
   const handleClickOpen = () => setOpenModal(true);
-  
-  const handleClose = () => {
-    setOpenModal(false);
-  };
-
-  console.log(input)
-
+  const handleClose = () => setOpenModal(false);
 
   return (
     <Fragment>
@@ -115,8 +105,7 @@ export default function FormDialog() {
                 setInput((prev) => ({ ...prev, categoryName: e.target.value }))
               }
             >
-              {data &&
-                data.map((el: any) => <option value={el.name}>{el.name}</option>)}
+              {data && data.map((el: any) => <option value={el.name}>{el.name}</option>)}
             </NativeSelect>
             <Stack>
               <Typography> Хоолны орц </Typography>
@@ -160,23 +149,18 @@ export default function FormDialog() {
                 }}
               >
                 <Typography>Add image for the food</Typography>
-                {/* <Input onChange={handleFileChange} type="file" /> */}
+  
                 <CldUploadWidget
                   uploadPreset="uehrhnkw"
-                  onSuccess={(result, { widget }) => {
-
-                    setInput((prev) => ({...prev, image: result?.info?.secure_url}))
-                    // setResource(result?.info);
+                  onSuccess={(result, { widget }) => {setInput((prev) => ({...prev, image: result?.info?.secure_url}))
                     widget.close();
-                    
                   }}
                 >
                   {({ open }) => {
                     return (
                       <Stack>
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
+                          onClick={(e) => {e.preventDefault();
                             open();
                           }}
                         >

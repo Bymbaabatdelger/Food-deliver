@@ -3,38 +3,26 @@ import { Request, Response } from "express";
 import { userModel } from "../model/user";
 import jwt from "jsonwebtoken"
 
-type signUpType = {
-  userName: String;
-  userEmail: String;
-  phoneNumber: Number;
-  password: string | Buffer;
-};
-type UserType = {
-  _id: string;
-  username: string;
-  password: string;
-  __v: number;
-}
-
-type LogInType = {
-  userEmail: string;
-  password: string;
-};
-
 
 export const signUp = async (req: Request, res: Response) => {
+
   try {
     await userModel.create(req.body);
     return res.status(201).send({ success: true });
+
   } catch (error) {
     return res.status(400).send({ error });
   }
+
 };
 
+
 export const logIn = async (req: Request, res: Response) => {
+
   try {
     const { email, password } = req.body;
     const user = await userModel.findOne({ email }).select('+password');
+
     if (!user) {
       return res.status(404).send({ msg: 'user not found' });
     }
@@ -48,6 +36,7 @@ export const logIn = async (req: Request, res: Response) => {
     const token = jwt.sign({ user }, 'MY_SECRET_KEY');
 
     return res.status(200).send({ success: true, token });
+
   } catch (error) {
     console.log(error);
     return res.status(400).send({ error });
@@ -58,9 +47,11 @@ export const logIn = async (req: Request, res: Response) => {
 
 
 export const getAllUsers = async (req:Request, res:Response) => {
+
   try {
     const users = await userModel.find();
     res.status(200).json(users);
+
   } catch (error) {
     console.error("Error fetching users:", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -68,10 +59,12 @@ export const getAllUsers = async (req:Request, res:Response) => {
 };
 
 export const deleteUser = async (req:Request , res:Response) => {
+
   const userId = req.params.userId
+
   try {
-   
     const remove = await userModel.findByIdAndDelete(userId)
+
     if(remove){
       res.status(200).json(remove)
     }
@@ -84,16 +77,20 @@ export const deleteUser = async (req:Request , res:Response) => {
 };
 
 export const updateUserById = async (req:Request, res:Response) => {
+
   const userId = req.params.userId;
   const updatedUserData = req.body;
+
   try {
     const updatedUser = await userModel.findByIdAndUpdate(
       userId,
       updatedUserData,
       { new: true }
     );
+
     if (updatedUser) {
       res.status(200).json(updatedUser);
+
     } else {
       res.status(404).json({ error: "User not found" });
     }
@@ -104,6 +101,7 @@ export const updateUserById = async (req:Request, res:Response) => {
 };
 
 export const getOneUserById = async (req: Request, res: Response) => {
+
   try {
     const checkUser = await userModel.findById(req.params.id);
 
@@ -111,6 +109,7 @@ export const getOneUserById = async (req: Request, res: Response) => {
       return res.status(404).json({ error: "user not found" });
     }
     res.status(200).json(checkUser);
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

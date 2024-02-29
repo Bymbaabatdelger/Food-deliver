@@ -10,27 +10,8 @@ import Pinecone from "../icons/Pinecone.svg";
 import OrderClick from "./OrderList";
 export default function Navbar( {onClick, orderCLick}:any) {
   
-
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
-
-  const toggleDrawer = (newOpen: boolean) => () => {
-
-    
-    setDrawerOpen(newOpen);
-  };
-
-  const DrawerContent = (
-  
-    <Stack>
-      hello
-    </Stack>
-   
-);
-
-  
   return (
 
-    
     <React.Fragment>
  <Stack sx={{p:2}} direction="row" justifyContent="space-around">
       <Stack direction="row" spacing={3}  alignItems="center">
@@ -67,12 +48,7 @@ export default function Navbar( {onClick, orderCLick}:any) {
         </Stack>
       </Stack>
     </Stack>
-    
-
       <Stack>
-      <Drawer open={drawerOpen} onClose={toggleDrawer(false)}>
-        {DrawerContent}
-      </Drawer>
     </Stack>
     </React.Fragment>
    

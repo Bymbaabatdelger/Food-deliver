@@ -12,7 +12,6 @@ export const createCategory = async( req:Request , res:Response) => {
      const {name , foodId }:Required<categoryType>= req.body
 
    try {
-
    const  checkFoodIdsByObjectId = Array.isArray(foodId)
    ? foodId.map((id: string) => new mongoose.Types.ObjectId(id))
    : [new mongoose.Types.ObjectId(foodId)];
@@ -41,10 +40,11 @@ export const createCategory = async( req:Request , res:Response) => {
 }
 
  export const getAllCategories = async (req: Request, res: Response) => {
+
     try {
       const categories = await categoryModel.find().populate("foodId");
-  
       res.status(200).json(categories);
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: " Server Error" });
@@ -52,13 +52,14 @@ export const createCategory = async( req:Request , res:Response) => {
   };
 
   export const getCategoryById = async (req: Request, res: Response) => {
+
     try {
       const category = await categoryModel.findById(req.params.id);
-  
       if (!category) {
         return res.status(404).json({ error: "Category not found" });
       }
       res.status(200).json(category);
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
@@ -66,6 +67,7 @@ export const createCategory = async( req:Request , res:Response) => {
   };
 
   export const updateCategoryById = async (req: Request, res: Response) => {
+
     try {
       const updatedCategory = await categoryModel.findByIdAndUpdate(
         req.params.id,
@@ -76,6 +78,7 @@ export const createCategory = async( req:Request , res:Response) => {
         return res.status(404).json({ error: "Category not found" });
       }
       res.status(200).json(updatedCategory);
+
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
@@ -83,6 +86,7 @@ export const createCategory = async( req:Request , res:Response) => {
   };
 
   export const deleteCategoryById = async (req: Request, res: Response) => {
+
     try {
       const deletedCategory = await categoryModel.findByIdAndDelete(
         req.params.id
@@ -91,6 +95,7 @@ export const createCategory = async( req:Request , res:Response) => {
         return res.status(404).json({ error: "Category not found" });
       }
       res.status(204).json();
+      
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
