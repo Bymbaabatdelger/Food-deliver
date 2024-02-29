@@ -21,10 +21,8 @@ export const loginModal = ({onClick}:any) => {
     password:"",
   })
  
-  
   const api = "http://localhost:8000/users/user"
 
-  
   const loginHandler = async(e:any) => {
     e.preventDefault()
 
@@ -39,21 +37,15 @@ export const loginModal = ({onClick}:any) => {
     }
   } 
 
-  const signUpHandler = () => {
-    router.push("/signup")
-  }
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const signUpHandler = () => router.push("/signup")
+  
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+  
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
