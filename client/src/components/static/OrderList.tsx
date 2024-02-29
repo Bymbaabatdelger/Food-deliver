@@ -20,8 +20,8 @@ export default function OrderClick({orderCLick}:any) {
   
   return (
     <Stack>
-      <Button onClick={toggleDrawer(true)}>Open drawer</Button>
-      <Drawer open={open} onClose={orderCLick}>
+      <Button onClick={orderCLick}>Open drawer</Button>
+      <Drawer open={open} onClose={toggleDrawer(true)}>
         {DrawerContent}
       </Drawer>
     </Stack>

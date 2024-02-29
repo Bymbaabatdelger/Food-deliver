@@ -22,23 +22,17 @@ export default function FormDialog() {
         console.log(error);
         
     }
-
   }
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  
   return (
     <React.Fragment>
-         <Stack p={5} gap={4} width="402px">
-        <Typography fontWeight="bold" alignSelf="center">Food menu</Typography>
-        <Button onClick={handleClickOpen} variant="outlined"> + Create new category</Button>
+         <Stack  gap={4} width="402px">
+        <Button sx={{width:"258px" , color:"black", borderColor:"black"}} onClick={handleClickOpen} variant="outlined"> + Create new category</Button>
      </Stack>
+
       <Dialog
         open={open}
         onClose={handleClose}

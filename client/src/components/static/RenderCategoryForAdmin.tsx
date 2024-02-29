@@ -1,7 +1,7 @@
 import { Button, Stack } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import useSWR from "swr";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function DrawCategory() {
   const api = "http://localhost:8000/category";
@@ -12,10 +12,11 @@ export default function DrawCategory() {
   
 
   return (
-    <Stack px={20} direction={"row"} justifyContent={"space-between"}>
+    <Stack  direction={"column"} justifyContent={"space-between"} gap={4}>
+
       {data &&
         data.map((el: any) => {
-          return <Button sx={{border:1 , color:"white" , background:"#18BA51"}}>{el.name}</Button>;
+          return <Button  endIcon={<MoreVertIcon/>} sx={{border:1 , color:"white" , background:"#18BA51" ,width:"258px"}}>{el.name}</Button>;
         })}
     </Stack>
   );

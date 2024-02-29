@@ -61,10 +61,7 @@ export default function FormDialog() {
   return (
     <Fragment>
       <Stack p={5} gap={4} width="402px">
-        <Typography fontWeight="bold" alignSelf="center">
-          Create Food
-        </Typography>
-        <Button onClick={handleClickOpen} variant="outlined">
+        <Button sx={{background:"#18BA51" , color:"white", borderColor:"white"}} onClick={handleClickOpen} variant="outlined">
           {" "}
           + Create new food
         </Button>

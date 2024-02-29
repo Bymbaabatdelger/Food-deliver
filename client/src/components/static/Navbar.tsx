@@ -8,12 +8,13 @@ import{ ButtonPrimary} from "../utils/ButtonPrimary"
 import React, { useState } from "react";
 import Pinecone from "../icons/Pinecone.svg";
 import OrderClick from "./OrderList";
+import { Fullscreen } from "@mui/icons-material";
 export default function Navbar( {onClick, orderCLick}:any) {
   
   return (
 
     <React.Fragment>
- <Stack sx={{p:2}} direction="row" justifyContent="space-around">
+ <Stack width={1} sx={{p:2}} direction="row" justifyContent="space-around">
       <Stack direction="row" spacing={3}  alignItems="center">
         <Pinecone/>
        <Stack direction="row">
