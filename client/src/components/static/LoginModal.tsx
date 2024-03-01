@@ -29,7 +29,7 @@ export const loginModal = ({onClick}:any) => {
     try {
       const res = await axios.post(api , {...input})
       console.log(res);
-      handleClose()
+      // handleClose()
       router.push("/userDashboard")
       
     } catch (error:any) {
@@ -39,8 +39,8 @@ export const loginModal = ({onClick}:any) => {
 
   const signUpHandler = () => router.push("/signup")
   
-  const handleClickOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const handleClickOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -53,12 +53,9 @@ export const loginModal = ({onClick}:any) => {
 
   return (
     <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Open form dialog
-      </Button>
+     
       <Dialog
         open={open}
-        onClose={handleClose}
         PaperProps={{
           component: 'form',
           onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
@@ -67,7 +64,6 @@ export const loginModal = ({onClick}:any) => {
             const formJson = Object.fromEntries((formData as any).entries());
             const email = formJson.email;
             console.log(email);
-            handleClose();
           },
         }}
       >
