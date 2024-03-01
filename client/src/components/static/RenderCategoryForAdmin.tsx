@@ -10,6 +10,7 @@ export default function DrawCategory() {
   const { data, isLoading, error } = useSWR(api, fetcher);
   console.log(data);
   
+  
 
   return (
     <Stack  direction={"column"} justifyContent={"space-between"} gap={4}>

@@ -30,7 +30,10 @@ export default function FormDialog() {
   return (
     <React.Fragment>
          <Stack  gap={4} width="402px">
-        <Button sx={{width:"258px" , color:"black", borderColor:"black"}} onClick={handleClickOpen} variant="outlined"> + Create new category</Button>
+        <Button sx={{width:"258px" , color:"black", borderColor:"black" , '&:hover': {
+        color: 'red',
+        backgroundColor: '#18BA51',
+      },}} onClick={handleClickOpen} variant="outlined"> + Create new category</Button>
      </Stack>
 
       <Dialog
